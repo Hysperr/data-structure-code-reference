@@ -1,12 +1,11 @@
-/** FILE: bag3demo.cxx
+/** FILE: bagLL_demo.cpp
  Demonstration program for the 3rd version of the bag (bag3.h and bag3.cxx).
  This is a the same as the demonstration program for bag1,
  except that we no longer need to check whether the bag reaches its
  capacity.*/
 
 #include <iostream>     // Provides cout and cin
-#include <cstdlib>      // Provides EXIT_SUCCESS
-#include "bag3.h"       // With Item defined as an int
+#include "bag_linked_list.h"       // With Item defined as an int
 
 using namespace std;
 using namespace main_savitch_5;
@@ -34,8 +33,7 @@ int main() {
 
 
 void get_ages(bag &ages) {
-    int user_input; // An age from the user's family
-
+    int user_input;
     cout << "Type the ages in your family. ";
     cout << "Type a negative number when you are done:" << endl;
     cin >> user_input;
@@ -46,8 +44,7 @@ void get_ages(bag &ages) {
 }
 
 void check_ages(bag &ages) {
-    int user_input; // An age from the user's family
-
+    int user_input;
     cout << "Type those ages again. Press return after each age:" << endl;
     while (ages.size() > 0) {
         cin >> user_input;

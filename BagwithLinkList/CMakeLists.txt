@@ -4,10 +4,10 @@ project(BagwithLinkList)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES
-    bag3.cpp
-    bag3.h
-    main.cpp
-    node1.cpp
-    node1.h)
+        bag_linked_list.cpp
+        bag_linked_list.h
+        bagLL_demo.cpp
+        node.cpp
+        node.h)
 
 add_executable(BagwithLinkList ${SOURCE_FILES})

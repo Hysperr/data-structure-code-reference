@@ -1,4 +1,4 @@
-/** FILE: bag3.h
+/** FILE: bag.h
  CLASS PROVIDED: bag (part of the namespace main_savitch_5)
 
  TYPEDEFS for the bag class:
@@ -56,11 +56,11 @@
    bad_alloc: The constructors, insert, operator +=, operator +, and the
    assignment operator.*/
 
-#ifndef MAIN_SAVITCH_BAG3_H
-#define MAIN_SAVITCH_BAG3_H
+#ifndef MAIN_SAVITCH_BAG_H
+#define MAIN_SAVITCH_BAG_H
 
-#include <cstdlib>   // Provides size_t and NULL
-#include "node1.h"   // Provides node class
+#include <cstdlib>   // Provides size_t and nullptr
+#include "node.h"   // Provides node class
 
 namespace main_savitch_5 {
     class bag {

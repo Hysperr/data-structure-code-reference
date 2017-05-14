@@ -1,4 +1,4 @@
-/** FILE: bag3.cxx
+/** FILE: bag.cpp
  CLASS implemented: bag (see bag3.h for documentation)
  INVARIANT for the bag ADT:
    1. The items in the bag are stored on a linked list;
@@ -8,46 +8,36 @@
 
 #include <cassert>  // Provides assert
 #include <cstdlib>  // Provides NULL, rand, size_t
-#include "node1.h"  // Provides node and the linked list functions
-#include "bag3.h"
+#include "node.h"  // Provides node and the linked list functions
+#include "bag_linked_list.h"
 
 using namespace std;
 
 namespace main_savitch_5 {
 
-    bag::bag()
-    // Library facilities used: cstdlib
-    {
-        head_ptr = NULL;
+    bag::bag() {
+        head_ptr = nullptr;
         many_nodes = 0;
     }
 
-    bag::bag(const bag &source)
-    // Library facilities used: node1.h
-    {
+    bag::bag(const bag &source) {
         node *tail_ptr;  // Needed for argument of list_copy
 
         list_copy(source.head_ptr, head_ptr, tail_ptr);
         many_nodes = source.many_nodes;
     }
 
-    bag::~bag()
-    // Library facilities used: node1.h
-    {
+    bag::~bag() {
         list_clear(head_ptr);
         many_nodes = 0;
     }
 
-    bag::size_type bag::count(const value_type &target) const
-    // Library facilities used: cstdlib, node1.h
-    {
-        size_type answer;
-        const node *cursor; // Use const node* since we don't change the nodes.
-
-        answer = 0;
-        cursor = list_search(head_ptr, target);
-        while (cursor != NULL) {
-            // Each time that cursor is not NULL, we have another occurrence of
+    bag::size_type bag::count(const value_type &target) const {
+        size_type answer = 0;
+        // Use const node* since we don't change the nodes.
+        const node *cursor = list_search(head_ptr, target);
+        while (cursor != nullptr) {
+            // Each time that cursor is not nullptr, we have another occurrence of
             // target, so we add one to answer, and move cursor to the next
             // occurrence of the target.
             ++answer;
@@ -57,15 +47,11 @@ namespace main_savitch_5 {
         return answer;
     }
 
-    bag::size_type bag::erase(const value_type &target)
-    // Library facilities used: cstdlib, node1.h
-    {
+    bag::size_type bag::erase(const value_type &target) {
         size_type answer = 0;
-        node *target_ptr;
-
-        target_ptr = list_search(head_ptr, target);
-        while (target_ptr != NULL) {
-            // Each time that target_ptr is not NULL, we have another occurrence
+        node *target_ptr = list_search(head_ptr, target);
+        while (target_ptr != nullptr) {
+            // Each time that target_ptr is not nullptr, we have another occurrence
             // of target. We remove this target using the same technique that
             // was used in erase_one.
             target_ptr->set_data(head_ptr->data());
@@ -78,13 +64,11 @@ namespace main_savitch_5 {
         return answer;
     }
 
-    bool bag::erase_one(const value_type &target)
-    // Library facilities used: cstdlib, node1.h
-    {
+    bool bag::erase_one(const value_type &target) {
         node *target_ptr;
 
         target_ptr = list_search(head_ptr, target);
-        if (target_ptr == NULL)
+        if (target_ptr == nullptr)
             return false; // target isn't in the bag, so no work to do
         target_ptr->set_data(head_ptr->data());
         list_head_remove(head_ptr);
@@ -92,9 +76,7 @@ namespace main_savitch_5 {
         return true;
     }
 
-    bag::value_type bag::grab() const
-    // Library facilities used: cassert, cstdlib, node1.h
-    {
+    bag::value_type bag::grab() const {
         size_type i;
         const node *cursor; // Use const node* since we don't change the nodes.
 
@@ -104,16 +86,12 @@ namespace main_savitch_5 {
         return cursor->data();
     }
 
-    void bag::insert(const value_type &entry)
-    // Library facilities used: node1.h
-    {
+    void bag::insert(const value_type &entry) {
         list_head_insert(head_ptr, entry);
         ++many_nodes;
     }
 
-    void bag::operator+=(const bag &addend)
-    // Library facilities used: cstdlib, node1.h
-    {
+    void bag::operator+=(const bag &addend) {
         node *copy_head_ptr;
         node *copy_tail_ptr;
 
@@ -125,9 +103,7 @@ namespace main_savitch_5 {
         }
     }
 
-    void bag::operator=(const bag &source)
-    // Library facilities used: node1.h
-    {
+    void bag::operator=(const bag &source) {
         node *tail_ptr; // Needed for argument to list_copy
 
         if (this == &source)
