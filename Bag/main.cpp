@@ -18,7 +18,7 @@ int main() {
 
     cout << "Quantity of each element in Bag B..." << endl;
     for (int k = 0; k < 21; k++) {
-        cout << k << setw(10) << b.count(k) << endl;    // flushes output buffer, can be expensive
+        cout << k << setw(10) << b.count(k) << endl;    // setw sets output width, std::endl flushes output buffer, can be expensive
     }
     cout << b.size() << " elements in Bag B" << endl << endl;
 
