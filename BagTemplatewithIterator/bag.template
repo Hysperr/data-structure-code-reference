@@ -1,0 +1,179 @@
+
+/**
+FILE: bag.template
+CLASS implemented: bag (see bag.h for documentation)
+
+NOTE:
+Since bag is a template class, this file is included in node.h.
+
+INVARIANT for the bag class:
+1. The items in the bag are stored on a linked list;
+2. The head pointer of the list is stored in the member variable head_ptr;
+3. The total number of items in the list is stored in the member variable
+   many_nodes.
+*/
+
+
+#include <iostream>
+#include <cassert>  // Provides assert
+#include "node.h"   // Provides node
+#include "bag.h"
+
+
+template<typename Item>
+bag<Item>::bag() {
+    head_ptr = nullptr;
+    many_nodes = 0;
+}
+
+template<typename Item>
+bag<Item>::bag(const bag<Item> &source) {
+    node<Item> *tail_ptr;  // Needed for argument of list_copy
+    list_copy(source.head_ptr, head_ptr, tail_ptr);
+    many_nodes = source.many_nodes;
+}
+
+template<typename Item>
+bag<Item>::~bag() {
+    list_clear(head_ptr);
+    many_nodes = 0;
+}
+
+template<typename Item>
+typename bag<Item>::size_type bag<Item>::count(const Item &target) const {
+    size_type answer = 0;
+    const node<Item> *cursor;
+
+    cursor = list_search(head_ptr, target);
+    while (cursor != nullptr) {
+        ++answer;
+        cursor = cursor->link();
+        cursor = list_search(cursor, target);
+    }
+    return answer;
+}
+
+template<typename Item>
+typename bag<Item>::size_type bag<Item>::erase(const Item &target) {
+    size_type answer = 0;
+    node<Item> *target_ptr;
+
+    target_ptr = list_search(head_ptr, target);
+    while (target_ptr != nullptr) {
+        ++answer;
+        --many_nodes;
+        target_ptr->set_data(head_ptr->data());
+        target_ptr = target_ptr->link();
+        target_ptr = list_search(target_ptr, target);
+        list_head_remove(head_ptr);
+    }
+    return answer;
+}
+
+template<typename Item>
+bool bag<Item>::erase_one(const Item &target) {
+    node<Item> *target_ptr;
+
+    target_ptr = list_search(head_ptr, target);
+    if (target_ptr == NULL)
+        return false; // target isn't in the bag, no work to do
+    target_ptr->set_data(head_ptr->data());
+    list_head_remove(head_ptr);
+    --many_nodes;
+    return true;
+}
+
+template<typename Item>
+Item bag<Item>::grab() const {
+    size_type i;
+    const node<Item> *cursor;
+
+    assert(size() > 0);
+    i = (std::rand() % size()) + 1;
+    cursor = list_locate(head_ptr, i);
+    return cursor->data();
+}
+
+template<typename Item>
+void bag<Item>::insert(const Item &entry) {
+    list_head_insert(head_ptr, entry);
+    ++many_nodes;
+}
+
+template<typename Item>
+void bag<Item>::operator+=(const bag<Item> &addend) {
+    node<Item> *copy_head_ptr;
+    node<Item> *copy_tail_ptr;
+
+    if (addend.many_nodes > 0) {
+        list_copy(addend.head_ptr, copy_head_ptr, copy_tail_ptr);
+        copy_tail_ptr->set_link(head_ptr);
+        head_ptr = copy_head_ptr;
+        many_nodes += addend.many_nodes;
+    }
+}
+
+template<typename Item>
+void bag<Item>::operator=(const bag<Item> &source) {
+    node<Item> *tail_ptr; // Needed for argument to list_copy
+
+    if (this == &source)
+        return;
+
+    list_clear(head_ptr);
+    many_nodes = 0;
+
+    list_copy(source.head_ptr, head_ptr, tail_ptr);
+    many_nodes = source.many_nodes;
+}
+
+template<typename Item>
+bag<Item> operator+(const bag<Item> &b1, const bag<Item> &b2) {
+    bag<Item> answer;
+
+    answer += b1;
+    answer += b2;
+    return answer;
+}
+
+/**
+ * Prints values in bag starting from the first occurrence
+ * of \c x until the first occurrence of \c y, not including \c y.
+ * If \c y doesn't appear, then then x to the remainder of the bag
+ * is printed. If \c is not present in the bag, only an alert message
+ * is printed, no values.
+ * @param x
+ * @param y
+ */
+template<typename Item>
+void bag<Item>::print_value_range(const Item &x, const Item &y) {
+    if (list_search(head_ptr, x) == nullptr) {
+        std::cout << "The starting value " << x << " is NOT in the list\n";
+        return;
+    }
+    node<Item> *first_elem = list_search(head_ptr, x);  // can use auto
+    node<Item> *last_elem = list_search(head_ptr, y);
+    while (first_elem != nullptr && first_elem != last_elem) {
+        std::cout << first_elem->data() << ' ';
+        if (first_elem == last_elem) break;
+        first_elem = first_elem->link();
+    }
+    std::cout << '\n';
+}
+
+/**
+ * Removes all repetitions from the bag.
+ */
+template<typename Item>
+void bag<Item>::remove_repetitions() {
+    node<Item> *p;
+    for (p = head_ptr; p != nullptr; p = p->link()) {
+        node<Item> *q = p;
+        while (q->link() != nullptr) {
+            if (q->data() == p->data()) {
+                list_remove(q);
+            }
+            q = q->link();
+        }
+    }
+}
