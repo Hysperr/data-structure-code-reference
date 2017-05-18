@@ -1,0 +1,48 @@
+
+#include <cassert>
+#include <iostream>
+#include "queue.h"
+
+template<typename T>
+queue<T>::queue() {
+    front = 0;
+    back = 0;
+}
+
+queue::~queue() {
+    delete[] data;
+}
+
+template<typename T>
+void queue<T>::insert(T element) {
+    assert(!isFull());
+    data[back] = element;
+    back = (back + 1) & ARRAY_SIZE; // circular
+}
+
+template<typename T>
+T queue<T>::remove() {
+    assert(!isEmpty());
+    T value = data[front];
+    front = (front + 1) % ARRAY_SIZE;
+    return value;
+}
+
+template<typename T>
+bool queue<T>::isFull() const {
+    return front == (back + 1) % ARRAY_SIZE;    // front passed back
+}
+
+template<typename T>
+bool queue<T>::isEmpty() const {
+    return front == back;
+}
+
+template<typename T>
+void queue<T>::print_queue() const {
+    assert(!isEmpty());
+    for (int i = front; i != back; i = (i + 1) % ARRAY_SIZE) {
+        std::cout << data[i] << ' ';
+    }
+    std::cout << '\n';
+}
