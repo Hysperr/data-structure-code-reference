@@ -29,7 +29,7 @@ void list_copy(const node<Item> *source_ptr, node<Item> *&head_ptr, node<Item> *
     head_ptr = nullptr;
     tail_ptr = nullptr;
 
-    // Handle the case of the empty list
+    // check if empty list
     if (source_ptr == nullptr)
         return;
 

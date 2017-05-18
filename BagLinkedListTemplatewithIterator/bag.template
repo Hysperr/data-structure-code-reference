@@ -76,7 +76,7 @@ bool bag<Item>::erase_one(const Item &target) {
 
     target_ptr = list_search(head_ptr, target);
     if (target_ptr == NULL)
-        return false; // target isn't in the bag, no work to do
+        return false; // target isn't in the bag
     target_ptr->set_data(head_ptr->data());
     list_head_remove(head_ptr);
     --many_nodes;
