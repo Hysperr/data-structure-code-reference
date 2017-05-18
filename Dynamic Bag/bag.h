@@ -91,20 +91,29 @@ public:
 
     size_type erase(const value_type &target);
 
+    void clear();
+
     void insert(const value_type &entry);
 
     void operator+=(const bag &addend);
 
-    void operator-=(const bag &addend);
+    size_type operator-=(const bag &addend);
 
     void operator=(const bag &source);
 
-    bool contains(const value_type &target) const;
+    value_type operator[](int x);
+
 
     // CONSTANT MEMBER FUNCTIONS
     size_type size() const { return used; }
 
+    bool contains(const value_type &target) const;
+
     size_type count(const value_type &target) const;
+
+    size_type get_capacity() const { return capacity; }
+
+    void print_bag() const;
 
 private:
     value_type *data;
