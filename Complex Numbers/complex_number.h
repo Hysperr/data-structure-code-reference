@@ -1,6 +1,3 @@
-//
-// Created by garyk_000 on 1/24/2016.
-//
 /**
  * PROJECT 19: Page 95
  *

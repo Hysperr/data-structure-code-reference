@@ -1,6 +1,3 @@
-//
-// Created by garyk_000 on 1/24/2016.
-//
 
 #include "complex_number.h"
 #include <cmath>
