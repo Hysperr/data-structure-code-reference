@@ -7,17 +7,15 @@ template<typename T>
 queue<T>::queue() {
     front = 0;
     back = 0;
-}
-
-queue::~queue() {
-    delete[] data;
+    used = 0;
 }
 
 template<typename T>
 void queue<T>::insert(T element) {
     assert(!isFull());
     data[back] = element;
-    back = (back + 1) & ARRAY_SIZE; // circular
+    back = (back + 1) % ARRAY_SIZE; // circular
+    used++;
 }
 
 template<typename T>
@@ -25,12 +23,13 @@ T queue<T>::remove() {
     assert(!isEmpty());
     T value = data[front];
     front = (front + 1) % ARRAY_SIZE;
+    used--;
     return value;
 }
 
 template<typename T>
 bool queue<T>::isFull() const {
-    return front == (back + 1) % ARRAY_SIZE;    // front passed back
+    return front == ((back + 1) % ARRAY_SIZE);    // front passed back
 }
 
 template<typename T>
@@ -40,7 +39,7 @@ bool queue<T>::isEmpty() const {
 
 template<typename T>
 void queue<T>::print_queue() const {
-    assert(!isEmpty());
+    if (isEmpty()) std::cout << "queue is empty...\n";
     for (int i = front; i != back; i = (i + 1) % ARRAY_SIZE) {
         std::cout << data[i] << ' ';
     }
