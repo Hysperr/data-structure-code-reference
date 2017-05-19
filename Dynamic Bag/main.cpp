@@ -55,7 +55,7 @@ int main() {
     b.print_bag();
 
     std::cout << "bag b contains 6 ?...\n";
-    std::cout << b.contains(6) << '\n';     // 0 true, 1 false
+    std::cout << b.contains(6) << '\n';     // 1 = true, 0 = false
 
     std::cout << "bag b capacity...\n";
     std::cout << b.get_capacity() << '\n';
