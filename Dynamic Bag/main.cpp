@@ -42,7 +42,7 @@ int main() {
     std::cout << "a size: " << a.size() << '\n';
 
     std::cout << "reset a with 1, 2, 3...\n";
-    a.insert(1);        // resetting a
+    a.insert(1);
     a.insert(2);
     a.insert(3);
     a.print_bag();
@@ -81,7 +81,7 @@ int main() {
 
     using namespace std;
 
-    std::cout << "-------------\n";
+    cout << "-------------\n";
 
     bag g;
     g.insert(1);
@@ -102,7 +102,7 @@ int main() {
     f.print_bag();
 
     cout << "f -= g...\n";
-    std::cout << (f -= g) << " Item(s) removed from bag f" << endl;
+    cout << (f -= g) << " Item(s) removed from bag f" << endl;
     cout << "updated bag f...\n";
     f.print_bag();
 

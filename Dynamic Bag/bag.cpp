@@ -21,6 +21,7 @@ bag::bag(const bag &source) {
     data = new value_type[source.capacity];
     capacity = source.capacity;
     used = source.used;
+    std::copy(source.data, source.data + used, data);
 }
 
 bag::~bag() {
