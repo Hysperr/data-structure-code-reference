@@ -3,5 +3,9 @@ project(Queue)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES main.cpp queue.template queue.h)
+set(SOURCE_FILES
+        main.cpp
+        queue.template
+        queue.h
+        Palindrome.cpp)
 add_executable(Queue ${SOURCE_FILES})

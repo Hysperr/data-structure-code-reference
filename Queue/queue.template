@@ -1,4 +1,3 @@
-
 #include <cassert>
 #include <iostream>
 #include "queue.h"
@@ -14,7 +13,7 @@ template<typename T>
 void queue<T>::insert(T element) {
     assert(!isFull());
     data[back] = element;
-    back = (back + 1) % ARRAY_SIZE; // circular
+    back = (back + 1) % ARRAY_SIZE;  // circular
     used++;
 }
 
@@ -29,7 +28,7 @@ T queue<T>::remove() {
 
 template<typename T>
 bool queue<T>::isFull() const {
-    return front == ((back + 1) % ARRAY_SIZE);    // front passed back
+    return front == ((back + 1) % ARRAY_SIZE);  // front passed back
 }
 
 template<typename T>
