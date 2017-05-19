@@ -4,7 +4,6 @@
 
 
 /**
-FILE: node.h (part of the namespace main_savitch_6B)
 PROVIDES: A template class for a node in a linked list, and list manipulation
 functions. The template parameter is the type of the data in each node.
 This file also defines a template class: node_iterator<Item>.

@@ -4,7 +4,6 @@
 
 
 /**
-FILE: bag.h (part of the namespace main_savitch_chapter6)
 TEMPLATE CLASS PROVIDED:
 bag<Item> (a collection of items; each item may appear multiple times)
 
