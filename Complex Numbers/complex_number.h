@@ -16,13 +16,13 @@ class complex_number {
 public:
     complex_number(double a, double b);
 
-    std::string add(complex_number c);
+    std::string add(complex_number &c);
 
-    std::string subtract(complex_number c);
+    std::string subtract(complex_number &c);
 
-    std::string multiply(complex_number c);
+    std::string multiply(complex_number &c);
 
-    std::string divide(complex_number c);
+    std::string divide(complex_number &c);
 
     friend std::ostream &operator<<(std::ostream &os, const complex_number &c);
 
