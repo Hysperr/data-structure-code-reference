@@ -1,3 +1,4 @@
+
 #ifndef BAG_H
 #define BAG_H
 
@@ -10,7 +11,7 @@ public:
     static const size_type CAPACITY = 30000;
 
     /**
-     * initializes an empty bag.
+     * Initializes an empty bag.
      */
     bag();
 
@@ -62,5 +63,6 @@ private:
 };
 
 bag operator+(const bag &b1, const bag &b2);
+
 
 #endif // BAG_H

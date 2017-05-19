@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <iomanip>
 #include "bag.h"
@@ -18,7 +19,7 @@ int main() {
 
     cout << "Quantity of each element in Bag B..." << endl;
     for (int k = 0; k < 21; k++) {
-        cout << k << setw(10) << b.count(k) << endl;    // setw sets output width, std::endl flushes output buffer, can be expensive
+        cout << k << setw(10) << b.count(k) << endl;    // setw() sets output width, std::endl flushes output buffer, can be expensive
     }
     cout << b.size() << " elements in Bag B" << endl << endl;
 
@@ -26,7 +27,7 @@ int main() {
     bag x;
     cout << "Bag X created..." << endl;
     x.insert(20);
-    x.insert(14.3);         // make sure typedef of double, else truncated values (14 in this case) if typedef of int
+    x.insert(14.3);         // make sure typedef double, else truncated values (14 in this case) if typedef int
     cout << "Two elements inserted into Bag X" << endl;
     cout << "Bag X:" << endl;
     x.printBag();
@@ -40,14 +41,15 @@ int main() {
     int tmp1[] = {0, 1, 2, 3, 4};
     int tmp2[] = {5, 6, 7, 8, 9};
 
-    // The sizeof operator returns num of bytes in object, divide it by pointer size - gives num elements in object in C/C++ array (array cannot be passed as param because treated as pointer)
+    // The sizeof operator returns num of bytes in object, divide it by pointer size - gives
+    // num elements in object in C/C++ array (array cannot be passed as param because treated as pointer)
     for (int i = 0; i < sizeof(tmp1) / sizeof(tmp1[0]); i++) {
         bag1.insert(tmp1[i]);
     }
     for (auto m : tmp2) bag2.insert(m);
 
     // In C++ 11 std::array is preferred over raw arrays.
-    // Alternatively, to loop through an array, in C++ 11 you can use a range-based for loop for (auto m : tmp1)
+    // Alternatively, to loop through an array, in C++ 11 you can use a range-based for loop for (auto m : tmp2)
 
 
     cout << "Bag 1: " << endl;
