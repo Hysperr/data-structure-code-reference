@@ -35,7 +35,7 @@ void sequence::insert(const value_type &entry) {
         used++;
         return;
     }
-    else if (current_index == 0 || !is_item()) {
+    else if (current_index == 0) {
         for (size_type i = used; i > current_index; i--) {
             data[i] = data[i - 1];
         }
