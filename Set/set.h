@@ -13,26 +13,37 @@ class set {
 
 public:
 
-
     // CONSTRUCTORS, DESTRUCTOR
     set(size_type initial_capacity = DEFAULT_CAPACITY);
+
     set(const set &source);
+
     ~set();
 
+    // MEMBER FUNCTIONS
     void reserve(size_type new_capacity);
-    bool erase_one(const value_type &target);
-    size_type erase(const value_type &target);
-    void insert(const value_type &entry, bool message = false);
-    void operator +=(const set &addend);
-    void operator =(const set &source);
-    value_type operator [](const size_type x);
 
-    // SPECIAL MEMBER FUNCTIONS
+    bool erase_one(const value_type &target);
+
+    size_type erase(const value_type &target);
+
+    void insert(const value_type &entry, bool message = true);
+
+    void operator+=(const set &addend);
+
+    void operator=(const set &source);
+
+    value_type operator[](const size_type x);
+
     void make_union(const set &other_set);
-    void make_interection(const set &other_set);
+
+    void make_intersection(const set &other_set);
+
+    void print_set() const;
 
     // CONSTANT MEMBER FUNCTIONS
     size_type size() const { return used; }
+
     bool contains(const value_type &target) const;
 
 private:
@@ -44,6 +55,6 @@ private:
 };
 
 // non member functions for set class
-set operator +(const set &s1, const set &s2);
+set operator+(const set &s1, const set &s2);
 
 #endif //SET_SET_H

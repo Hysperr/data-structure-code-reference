@@ -1,7 +1,6 @@
 
 #include "set.h"
 #include <algorithm>
-#include <cassert>
 #include <iostream>
 
 set::set(size_type initial_capacity) {
@@ -34,7 +33,7 @@ void set::reserve(size_type new_capacity) {
 
 bool set::erase_one(const set::value_type &target) {
     size_type index = 0;
-    while (index < used && index != target) index++;
+    while (index < used && data[index] != target) index++;
     if (index == used) return false;    // target not in bag
 
     // if reach here, target in set at data[index]
@@ -61,19 +60,18 @@ typename set::size_type set::erase(const set::value_type &target) {
 }
 
 void set::insert(const set::value_type &entry, bool message) {
-    assert(!contains(entry));
-    if (used == capacity) {
-        reserve(used + 1);
-        data[used] = entry;
-        used++;
+    if (contains(entry)) {
+        if (message) std::cout << "contains duplicate, item not inserted.\n";
         return;
     }
-    if (message) std::cout << "contains duplicate, item not inserted.\n";
+    if (used == capacity) reserve(used + 1);
+    data[used] = entry;
+    used++;
 }
 
 bool set::contains(const set::value_type &target) const {
     size_type index = 0;
-    while (index < used && index != target) index++;
+    while (index < used && data[index] != target) index++;
     return index != used;   // we must be on target if true
 }
 
@@ -107,90 +105,52 @@ void set::make_union(const set &other_set) {
     size_type index = 0;
     while (index < other_set.used) {
         insert(other_set.data[index]);
-    }
-}
-
-void set::make_interection(const set &other_set) {
-    value_type *array = new value_type[capacity + other_set.capacity];
-    capacity = capacity += other_set.capacity;
-    used = 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    size_type smaller_first;
-    size_type bigger_second;
-
-    if (other_set.used < used) {
-        smaller_first = other_set.used;
-        bigger_second = used;
-    }
-    else {
-        smaller_first = used;
-        bigger_second = other_set.used;
-    }
-
-    size_type index = 0;
-    size_type i = 0;
-
-    while (index < smaller_first) {
-        if (!contains(other_set.data[index])) {     // other_set smaller
-            array[i] = data[index];
-            used++;
-            i++;
-        }
         index++;
     }
+}
 
-    index = 0;  // reset index
+void set::make_intersection(const set &other_set) {
 
-    while (index < bigger_second) {
-        if ()
+    value_type *array = new value_type[capacity + other_set.capacity];
+    capacity = capacity += other_set.capacity;
+
+    size_type tmp_used = 0;
+
+    if (other_set.used > used) {
+        size_type index = 0;
+        size_type t = 0;
+        while (index < other_set.used) {
+            if (this->contains(other_set.data[index])) {
+                array[t] = other_set.data[index];
+                tmp_used++;
+                t++;
+            }
+            index++;
+        }
+    }
+    else {
+        size_type index = 0;
+        size_type t = 0;
+        while (index < used) {
+            if (other_set.contains(data[index])) {
+                array[t] = data[index];
+                tmp_used++;
+                t++;
+            }
+            index++;
+        }
     }
 
-
-
-
+    delete[] data;
+    data = array;
+    std::copy(array, array + tmp_used, data);
+    used = tmp_used;
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void set::print_set() const {
+    for (size_type i = 0; i < used; i++) {
+        std::cout << data[i] << ' ';
+    }
+    std::cout << '\n';
+}
