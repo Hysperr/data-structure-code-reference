@@ -60,7 +60,7 @@ typename set::size_type set::erase(const set::value_type &target) {
     return num_removed;
 }
 
-void set::insert(const set::value_type &entry) {
+void set::insert(const set::value_type &entry, bool message) {
     assert(!contains(entry));
     if (used == capacity) {
         reserve(used + 1);
@@ -68,7 +68,7 @@ void set::insert(const set::value_type &entry) {
         used++;
         return;
     }
-    std::cout << "contains duplicate, item not inserted.\n";
+    if (message) std::cout << "contains duplicate, item not inserted.\n";
 }
 
 bool set::contains(const set::value_type &target) const {
@@ -78,12 +78,109 @@ bool set::contains(const set::value_type &target) const {
 }
 
 void set::operator+=(const set &addend) {
+    if (used + addend.used > capacity) reserve(used + addend.used + 1);
+    size_type index = 0;
+    while (index < addend.used) {
+        if (!contains(addend.data[index])) {
+            insert(data[index]);
+        }
+    }
+}
+
+void set::operator=(const set &source) {
+    if (this == &source) return;
+    if (capacity != source.capacity) {  // allocate an new array with source's capacity
+        value_type *new_array = new value_type[source.capacity];
+        capacity = source.capacity;
+        delete[] data;
+        data = new_array;
+    }
+    used = source.used;
+    std::copy(source.data, source.data + source.used, data);
+}
+
+typename set::value_type set::operator[](const size_type x) {
+    return data[x];
+}
+
+void set::make_union(const set &other_set) {
+    size_type index = 0;
+    while (index < other_set.used) {
+        insert(other_set.data[index]);
+    }
+}
+
+void set::make_interection(const set &other_set) {
+    value_type *array = new value_type[capacity + other_set.capacity];
+    capacity = capacity += other_set.capacity;
+    used = 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    size_type smaller_first;
+    size_type bigger_second;
+
+    if (other_set.used < used) {
+        smaller_first = other_set.used;
+        bigger_second = used;
+    }
+    else {
+        smaller_first = used;
+        bigger_second = other_set.used;
+    }
+
+    size_type index = 0;
+    size_type i = 0;
+
+    while (index < smaller_first) {
+        if (!contains(other_set.data[index])) {     // other_set smaller
+            array[i] = data[index];
+            used++;
+            i++;
+        }
+        index++;
+    }
+
+    index = 0;  // reset index
+
+    while (index < bigger_second) {
+        if ()
+    }
+
+
+
+
 
 }
 
-void set::operator-=(const set &addend) {
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -22,9 +22,14 @@ public:
     void reserve(size_type new_capacity);
     bool erase_one(const value_type &target);
     size_type erase(const value_type &target);
-    void insert(const value_type &entry);
+    void insert(const value_type &entry, bool message = false);
     void operator +=(const set &addend);
-    void operator -=(const set &addend);
+    void operator =(const set &source);
+    value_type operator [](const size_type x);
+
+    // SPECIAL MEMBER FUNCTIONS
+    void make_union(const set &other_set);
+    void make_interection(const set &other_set);
 
     // CONSTANT MEMBER FUNCTIONS
     size_type size() const { return used; }
