@@ -23,6 +23,7 @@ set::~set() {
 void set::reserve(size_type new_capacity) {
     if (new_capacity == capacity) return;           // the allocated memory is already the right size
     if (new_capacity < used) new_capacity = used;   // can't allocate less than we are using
+
     value_type *larger_array = new value_type[new_capacity];
     std::copy(data, data + used, larger_array);
     delete[] data;
@@ -97,55 +98,51 @@ void set::operator=(const set &source) {
     std::copy(source.data, source.data + source.used, data);
 }
 
-typename set::value_type set::operator[](const size_type x) {
+typename set::value_type set::operator[](const set::size_type x) {
     return data[x];
 }
 
 void set::make_union(const set &other_set) {
     size_type index = 0;
     while (index < other_set.used) {
-        insert(other_set.data[index]);
+        insert(other_set.data[index], false);
         index++;
     }
 }
 
 void set::make_intersection(const set &other_set) {
-
     value_type *array = new value_type[capacity + other_set.capacity];
     capacity = capacity += other_set.capacity;
-
     size_type tmp_used = 0;
 
+    // loop through largest set, prevents out of bounds
     if (other_set.used > used) {
         size_type index = 0;
-        size_type t = 0;
+        size_type i = 0;
         while (index < other_set.used) {
             if (this->contains(other_set.data[index])) {
-                array[t] = other_set.data[index];
+                array[i] = other_set.data[index];
                 tmp_used++;
-                t++;
+                i++;
             }
             index++;
         }
     }
     else {
         size_type index = 0;
-        size_type t = 0;
+        size_type i = 0;
         while (index < used) {
             if (other_set.contains(data[index])) {
-                array[t] = data[index];
+                array[i] = data[index];
                 tmp_used++;
-                t++;
+                i++;
             }
             index++;
         }
     }
-
-    delete[] data;
-    data = array;
-    std::copy(array, array + tmp_used, data);
-    used = tmp_used;
-
+    delete[] data;      // return old memory pointed to by data to heap
+    data = array;       // point data to newly allocated array memory
+    used = tmp_used;    // update used
 }
 
 void set::print_set() const {
