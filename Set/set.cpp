@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <iostream>
 
-set::set(size_type initial_capacity) {
+set::set(set::size_type initial_capacity) {
     data = new value_type[DEFAULT_CAPACITY];
     capacity = initial_capacity;
     used = 0;
@@ -20,7 +20,7 @@ set::~set() {
     delete[] data;
 }
 
-void set::reserve(size_type new_capacity) {
+void set::reserve(set::size_type new_capacity) {
     if (new_capacity == capacity) return;           // the allocated memory is already the right size
     if (new_capacity < used) new_capacity = used;   // can't allocate less than we are using
 
@@ -77,12 +77,10 @@ bool set::contains(const set::value_type &target) const {
 }
 
 void set::operator+=(const set &addend) {
-    if (used + addend.used > capacity) reserve(used + addend.used + 1);
+    if (used + addend.used > capacity) reserve(used + addend.used);
     size_type index = 0;
-    while (index < addend.used) {
-        if (!contains(addend.data[index])) {
-            insert(data[index]);
-        }
+    while (++index < addend.used) {     // prefix: use then increment
+        insert(addend.data[index], false);
     }
 }
 
@@ -103,6 +101,7 @@ typename set::value_type set::operator[](const set::size_type x) {
 }
 
 void set::make_union(const set &other_set) {
+    if (used + other_set.used > capacity) reserve(used + other_set.used);
     size_type index = 0;
     while (index < other_set.used) {
         insert(other_set.data[index], false);
