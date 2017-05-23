@@ -26,7 +26,7 @@ int main() {
     std::cout << '\n';
 
 
-    cout << "Push 18 items into B to fill stack_pair..." << endl;
+    cout << "Push 15 items into B to fill stack_pair..." << endl;
     for (int i = 30; i > 15; i--) {
         sp.push_b(i);
     }
