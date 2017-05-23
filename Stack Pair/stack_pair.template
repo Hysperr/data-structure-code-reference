@@ -1,0 +1,94 @@
+
+#include "stack_pair.h"
+#include <cassert>
+#include <iostream>
+
+template <typename T>
+stack_pair<T>::stack_pair() {
+    top_a = 0;
+    top_b = CAPACITY - 1;
+}
+
+template <typename T>
+T stack_pair<T>::pop_a() {
+    assert(!is_empty_a());
+    T val = data[top_a - 1];
+    top_a--;
+    return val;
+}
+
+template <typename T>
+T stack_pair<T>::pop_b() {
+    assert(!is_empty_b());
+    T val = data[top_b + 1];
+    top_b++;
+    return val;
+}
+
+template <typename T>
+void stack_pair<T>::push_a(T item) {
+    assert(!is_full_a());
+    data[top_a] = item;
+    top_a++;
+}
+
+template <typename T>
+void stack_pair<T>::push_b(T item) {
+    assert(!is_full_b());
+    data[top_b] = item;
+    top_b--;
+}
+
+template <typename T>
+typename stack_pair<T>::size_type stack_pair<T>::size_a() const {
+    return top_a ;
+}
+
+template <typename T>
+typename stack_pair<T>::size_type stack_pair<T>::size_b() const {
+    return (CAPACITY - 1) - top_b;
+}
+
+template <typename T>
+bool stack_pair<T>::is_empty_a() const {
+    return top_a == 0;
+}
+
+template <typename T>
+bool stack_pair<T>::is_empty_b() const {
+    return top_b == CAPACITY - 1;
+}
+
+template <typename T>
+bool stack_pair<T>::is_full_a() const {
+    return top_a > top_b;
+}
+
+template <typename T>
+bool stack_pair<T>::is_full_b() const {
+    return top_b < top_a;
+}
+
+template <typename T>
+void stack_pair<T>::print_stack_pair() const {
+    if (is_empty_a()) {
+        std::cout << "A is empty...";
+    }
+    else {
+        for (size_type a_end = 0; a_end < top_a; a_end++) {
+            std::cout << data[a_end] << ' ';
+        }
+    }
+
+    std::cout << " | ";
+
+    if (is_empty_b()) {
+        std::cout << "B is empty...";
+    }
+    else {
+        for (size_type b_end = CAPACITY - 1; b_end > top_b; b_end--) {
+            std::cout << data[b_end] << ' ';
+        }
+    }
+    std::cout << '\n';
+}
