@@ -7,7 +7,7 @@ using namespace std;
 int main() {
     stack_pair<int> sp;
 
-    cout << "stack_pair created with ends front end A & back end B." << endl;
+    cout << "stack_pair created with front end A & back end B." << endl;
     cout << "Is A empty? " << sp.is_empty_a() << endl;
     cout << "Is B empty? " << sp.is_empty_b() << endl;
     cout << "print stack_pair: " << endl;
