@@ -27,16 +27,24 @@ T stack_pair<T>::pop_b() {
 
 template <typename T>
 void stack_pair<T>::push_a(T item) {
-    assert(!is_full_a());
-    data[top_a] = item;
-    top_a++;
+    if (is_full_a()) {
+        std::cout << "A already filled. Item not pushed...\n";
+    }
+    else {
+        data[top_a] = item;
+        top_a++;
+    }
 }
 
 template <typename T>
 void stack_pair<T>::push_b(T item) {
-    assert(!is_full_b());
-    data[top_b] = item;
-    top_b--;
+    if (is_full_b()) {
+        std::cout << "B already filled. Item not pushed...\n";
+    }
+    else {
+        data[top_b] = item;
+        top_b--;
+    }
 }
 
 template <typename T>

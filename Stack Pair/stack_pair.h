@@ -32,9 +32,11 @@ public:
     void print_stack_pair() const;
 
 private:
+
     T data[CAPACITY];
     size_type top_a;
     size_type top_b;
+
 };
 
 #include "stack_pair.template"
