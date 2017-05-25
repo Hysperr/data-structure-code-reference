@@ -63,7 +63,8 @@ void tree_clear(binary_tree *&root_ptr) {
 
 template<typename T>
 std::size_t tree_size(const binary_tree<T> *node_ptr) {
-    if (node_ptr == nullptr) return 0;
+    if (node_ptr == nullptr)
+        return 0;
     else
         return 1 + (tree_size(node_ptr->left()) + tree_size(node_ptr->right()));
 }
