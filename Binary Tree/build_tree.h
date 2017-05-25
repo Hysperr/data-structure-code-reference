@@ -5,7 +5,7 @@
 #include <cassert>
 
 /**
- *  This is a helper function 
+ *  This is a helper function
  */
 template<typename T>
 binary_tree<T> *build_from_node_lists(
@@ -16,6 +16,7 @@ binary_tree<T> *build_from_node_lists(
         size_t in_start,
         size_t in_end)
 {
+
     if (pre_start >= pre_end) return nullptr;
     const T rootval = preorder[pre_start];
     size_t r = in_start;
@@ -24,8 +25,20 @@ binary_tree<T> *build_from_node_lists(
     assert(r < in_end);
     size_t lsize = r - in_start;
 
-    binary_tree<T> *left = build_from_node_lists(preorder, inorder, pre_start + 1, pre_start + lsize + 1, in_start, r);
-    binary_tree<T> *right = build_from_node_lists(preorder, inorder, pre_start + lsize + 1, pre_end, r + 1, in_end);
+    binary_tree<T> *left = build_from_node_lists(
+            preorder,
+            inorder,
+            pre_start + 1,
+            pre_start + lsize + 1,
+            in_start, r);
+
+    binary_tree<T> *right = build_from_node_lists(
+            preorder,
+            inorder,
+            pre_start + lsize + 1,
+            pre_end, r + 1,
+            in_end);
+
     return new binary_tree<T>(left, right, rootval);
 }
 
