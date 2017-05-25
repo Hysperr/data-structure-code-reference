@@ -8,3 +8,36 @@ binary_tree::binary_tree(binary_tree *init_left, binary_tree *init_right, const 
     right_field = init_right;
     data_field = entry;
 }
+
+template<class Process, class BTNode>
+void inorder(Process f, BTNode *node_ptr)
+// Library facilities used: cstdlib
+{
+    if (node_ptr != NULL) {
+        inorder(f, node_ptr->left());
+        f(node_ptr->data());
+        inorder(f, node_ptr->right());
+    }
+}
+
+template<class Process, class BTNode>
+void postorder(Process f, BTNode *node_ptr)
+// Library facilities used: cstdlib
+{
+    if (node_ptr != NULL) {
+        postorder(f, node_ptr->left());
+        postorder(f, node_ptr->right());
+        f(node_ptr->data());
+    }
+}
+
+template<class Process, class BTNode>
+void preorder(Process f, BTNode *node_ptr)
+// Library facilities used: cstdlib
+{
+    if (node_ptr != NULL) {
+        f(node_ptr->data());
+        preorder(f, node_ptr->left());
+        preorder(f, node_ptr->right());
+    }
+}
