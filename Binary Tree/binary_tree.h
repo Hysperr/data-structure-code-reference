@@ -1,4 +1,5 @@
-/** FILE: bintree.h (part of the namespace main_savitch_10)
+
+/**
 PROVIDES: A template class for a node in a binary tree and functions for
 manipulating binary trees. The template parameter is the type of data in
 each node.
@@ -103,8 +104,35 @@ Postcondition: The return value is the number of nodes in the tree.
 #ifndef BINARY_TREE_BINARY_TREE_H
 #define BINARY_TREE_BINARY_TREE_H
 
-
+template<typename T>
 class binary_tree {
+
+public:
+
+    // CONSTRUCTOR
+    binary_tree(binary_tree *init_left = nullptr, binary_tree *init_right = nullptr, const T &entry = T());
+
+    // MEMBER FUNCTIONS
+    T &data() { return data_field; }
+
+    binary_tree *left() { return left_field; }
+
+    binary_tree *right() { return right_field; }
+
+    void set_data(const T &entry) { data_field = entry; }
+
+    void set_left(binary_tree *new_left) { left_field = new_left; }
+
+    void set_right(binary_tree *new_right) { right_field = new_right; }
+
+    bool is_leaf() const { return (left_field == nullptr) && (right_field == nullptr); }
+
+
+private:
+
+    T data_field;
+    binary_tree *left_field;
+    binary_tree *right_field;
 
 };
 

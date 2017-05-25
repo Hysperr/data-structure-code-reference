@@ -1,5 +1,10 @@
-//
-// Created by garyk on 5/24/2017.
-//
+
 
 #include "binary_tree.h"
+
+template<typename T>
+binary_tree::binary_tree(binary_tree *init_left, binary_tree *init_right, const T &entry) {
+    left_field = init_left;
+    right_field = init_right;
+    data_field = entry;
+}
