@@ -5,7 +5,7 @@
 #include "binary_tree.h"
 
 template<typename T>
-binary_tree::binary_tree(binary_tree *init_left, binary_tree *init_right, const T &entry) {
+binary_tree<T>::binary_tree(binary_tree *init_left, binary_tree *init_right, const T &entry) {
     left_field = init_left;
     right_field = init_right;
     data_field = entry;
@@ -49,7 +49,7 @@ void print(binary_tree<T> *node_ptr, SizeType depth) {
 };
 
 template<typename T>
-void tree_clear(binary_tree *&root_ptr) {
+void tree_clear(binary_tree<T> *&root_ptr) {
     binary_tree<T> *child;
     if (root_ptr != nullptr) {
         child = root_ptr->left();
@@ -77,6 +77,6 @@ binary_tree<T> *tree_copy(const binary_tree<T> *root_ptr) {
     else {
         lptr = tree_copy(root_ptr->left());
         rptr = tree_copy(root_ptr->right());
-        return new binary_tree(root_ptr->data(), lptr, rptr);
+        return new binary_tree<T>(root_ptr->data(), lptr, rptr);
     }
 }

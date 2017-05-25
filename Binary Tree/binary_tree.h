@@ -105,6 +105,7 @@ Postcondition: The return value is the number of nodes in the tree.
 #define BINARY_TREE_BINARY_TREE_H
 
 #include <cstddef>
+#include <cstring>
 
 template<typename T>
 class binary_tree {
@@ -160,6 +161,9 @@ std::size_t tree_size(const binary_tree<T> *node_ptr);
 
 template<typename T>
 binary_tree<T> *tree_copy(const binary_tree<T> *root_ptr);
+
+
+#include "binary_tree.template"
 
 
 #endif //BINARY_TREE_BINARY_TREE_H
