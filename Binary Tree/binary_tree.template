@@ -41,3 +41,16 @@ void preorder(Process f, BTNode *node_ptr)
         preorder(f, node_ptr->right());
     }
 }
+
+template <class Item, class SizeType>
+void print(binary_tree_node<Item>* node_ptr, SizeType depth)
+// Library facilities used: iomanip, iostream, stdlib
+{
+    if (node_ptr != NULL)
+    {
+        print(node_ptr->right( ), depth+1);
+        std::cout << std::setw(4*depth) << ""; // Indent 4*depth spaces.
+        std::cout << node_ptr->data( ) << std::endl;
+        print(node_ptr->left( ),  depth+1);
+    }
+}
