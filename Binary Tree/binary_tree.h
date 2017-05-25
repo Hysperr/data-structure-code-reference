@@ -104,6 +104,8 @@ Postcondition: The return value is the number of nodes in the tree.
 #ifndef BINARY_TREE_BINARY_TREE_H
 #define BINARY_TREE_BINARY_TREE_H
 
+#include <cstddef>
+
 template<typename T>
 class binary_tree {
 
@@ -113,11 +115,11 @@ public:
     binary_tree(binary_tree *init_left = nullptr, binary_tree *init_right = nullptr, const T &entry = T());
 
     // MEMBER FUNCTIONS
-    T &data() { return data_field; }
+    const T &data() const { return data_field; }
 
-    binary_tree *left() { return left_field; }
+    binary_tree *left() const { return left_field; }
 
-    binary_tree *right() { return right_field; }
+    binary_tree *right() const { return right_field; }
 
     void set_data(const T &entry) { data_field = entry; }
 
@@ -135,6 +137,26 @@ private:
     binary_tree *right_field;
 
 };
+
+
+// NON-MEMBER FUNCTIONS to manipulate binary_tree<T>
+template<typename Process, typename BinTree>
+void inorder(Process f, BinTree *node_ptr);
+
+template<typename Process, typename BinTree>
+void preorder(Process f, BinTree *node_ptr);
+
+template<typename Process, typename BinTree>
+void postorder(Process f, BinTree *node_ptr);
+
+template<typename T, typename SizeType>
+void print(binary_tree<T> *node_ptr, SizeType depth);
+
+template<typename T>
+void tree_clear(binary_tree<T> *&root_ptr);
+
+template<typename T>
+std::size_t tree_size(const binary_tree<T> *node_ptr);
 
 
 #endif //BINARY_TREE_BINARY_TREE_H
