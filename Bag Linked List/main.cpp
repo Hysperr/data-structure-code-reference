@@ -1,14 +1,14 @@
-/** FILE: bagLL_demo.cpp
- Demonstration program for the 3rd version of the bag (bag3.h and bag3.cxx).
- This is a the same as the demonstration program for bag1,
- except that we no longer need to check whether the bag reaches its
- capacity.*/
+/**
+Demonstration program for the 3rd version of the bag (bag3.h and bag3.cxx).
+This is a the same as the demonstration program for bag1,
+except that we no longer need to check whether the bag reaches its
+capacity.
+*/
 
-#include <iostream>     // Provides cout and cin
-#include "bag_linked_list.h"       // With Item defined as an int
+#include <iostream>
+#include "bag_linked_list.h"
 
 using namespace std;
-using namespace main_savitch_5;
 
 // PROTOTYPES for functions used by this demonstration program:
 void get_ages(bag &ages);
