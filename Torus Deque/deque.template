@@ -1,0 +1,74 @@
+#include <cassert>
+#include <iostream>
+#include "deque.h"
+
+template<typename T>
+deque<T>::deque() {
+    first = 0;
+    last = 1;
+    count = 0;
+}
+
+template<typename T>
+T &deque<T>::front() {
+    assert(!empty());
+    T &val = data[(first + 1) % CAPACITY];
+    return val;
+}
+
+template<typename T>
+T deque<T>::front() const {
+    assert(!empty());
+    return data[(first + 1) % CAPACITY];
+}
+
+template<typename T>
+T &deque<T>::back() {
+    assert(!empty());
+    size_type tmp = last;
+    if (tmp == 0) tmp = CAPACITY - 1;
+    else tmp--;
+    T &val = data[tmp];
+    return val;
+}
+
+template<typename T>
+T deque<T>::back() const {
+    assert(!empty());
+    size_type tmp = last;
+    if (tmp == 0) tmp = CAPACITY - 1;
+    else tmp--;
+    return data[tmp];
+}
+
+template<typename T>
+void deque<T>::push_front(const T &entry) {
+    assert(!full());
+    data[first] = entry;
+    count++;
+    if (first == 0) first = CAPACITY - 1;
+    else first -= 1;
+}
+
+template<typename T>
+void deque<T>::push_back(const T &entry) {
+    assert(!full());
+    data[last] = entry;
+    last = (last + 1) % CAPACITY;
+    count++;
+}
+
+template<typename T>
+void deque<T>::pop_front() {
+    // override
+    first = (first + 1) % CAPACITY;
+    count--;
+}
+
+template<typename T>
+void deque<T>::pop_back() {
+    // override
+    if (last == 0) last = CAPACITY - 1;
+    else last -= 1;
+    count--;
+}

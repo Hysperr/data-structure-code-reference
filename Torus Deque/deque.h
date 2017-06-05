@@ -1,3 +1,19 @@
+/**
+ * @author Gary K.
+ * @date 2017-04-06 YYYY-MM-DD
+ * @brief A variant template implementation of an STL Deque container.
+ * This is a special deque, one that is both circular AND inverted
+ * to provide slightly better run-time performance and easier
+ * iterator support. It behaves as a normal deque should, but the
+ * internal implementation is unique. Picture a torus-shaped array.
+ * In the function \c push_front() the private data field \c first
+ * is at index 0 and moves left after each insert at \c data[first].
+ * In the function \c push_back() private data field \c last begins
+ * at index 1 and moves right after each insert at \c data[last].
+ * For users of the container, these implementation details need not be known.
+ */
+
+
 #ifndef DEQUE_DEQUE_H
 #define DEQUE_DEQUE_H
 
@@ -48,15 +64,19 @@ public:
 
     size_type size() const { return count; }
 
-    bool empty() const { return count == 0; }
+    bool empty() const { return count == 0; }       // or first + 1 % cap == last
 
-    bool full() const { return count == CAPACITY; }
+    bool full() const { return count == CAPACITY; } // or last == first
+
+    size_type get_first() const { return first; }
+
+    size_type get_last() const { return last; }
 
 private:
 
     T data[CAPACITY];
-    size_type first;
-    size_type last;
+    size_type first;    // front of deque, moves left due to reverse torus
+    size_type last;     // back of deque, moves right due to reverse torus
     size_type count;
 
 };
